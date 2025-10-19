@@ -1,3 +1,0 @@
-INDEX VERSION 1.134+C:\Users\users_\Diwali_Assignments\Day_01\.metadata\.plugins\org.eclipse.jdt.core
-4108745926.index
-1865797976.index
