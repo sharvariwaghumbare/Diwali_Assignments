@@ -1,0 +1,21 @@
+package com.demo.challege;
+
+public class Coding_Challege {
+
+    public static void main(String[] args) {
+        String[] arr = {"apple", "watermelon", "grape", "orange", "kiwi"};
+
+        int maxLen = 0;
+        String longest = "";
+
+        for (String s : arr) {
+            if (s.length() > maxLen) {
+                maxLen = s.length();
+                longest = s;
+            }
+        }
+
+        System.out.println("Longest string: " + longest);
+        System.out.println("Length of longest string: " + maxLen);
+    }
+}
