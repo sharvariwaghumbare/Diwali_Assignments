@@ -1,0 +1,434 @@
+﻿@{
+    ViewData["Title"] = "Dashboard - Student Management System";
+}
+
+<style>
+    .hero-section {
+        background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+        color: white;
+        padding: 4rem 0;
+        margin: -2rem -15px 3rem -15px;
+        border-radius: 0 0 2rem 2rem;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .hero-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 200"><defs><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)"/></svg>');
+        opacity: 0.3;
+    }
+
+    .hero-content {
+        position: relative;
+        z-index: 2;
+    }
+
+    .hero-title {
+        font-size: 3.5rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        animation: fadeInUp 1s ease-out;
+    }
+
+    .hero-subtitle {
+        font-size: 1.3rem;
+        margin-bottom: 2rem;
+        opacity: 0.9;
+        animation: fadeInUp 1s ease-out 0.2s both;
+    }
+
+    .hero-stats {
+        animation: fadeInUp 1s ease-out 0.4s both;
+    }
+
+
+    .stat-card {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 1rem;
+        padding: 1.5rem;
+        text-align: center;
+        transition: all 0.3s ease;
+        margin-bottom: 1rem;
+    }
+
+    .stat-card:hover {
+        transform: translateY(-5px);
+        background: rgba(255, 255, 255, 0.15);
+    }
+
+    .stat-number {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        color: #ecf0f1;
+    }
+
+    .stat-label {
+        font-size: 1rem;
+        opacity: 0.9;
+    }
+
+    .quick-actions {
+        margin: 3rem 0;
+    }
+
+    .action-card {
+        background: white;
+        border-radius: 1rem;
+        padding: 2rem;
+        text-align: center;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        border: none;
+        transition: all 0.3s ease;
+        height: 100%;
+        cursor: pointer;
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .action-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+        color: inherit;
+        text-decoration: none;
+    }
+
+    .action-icon {
+        font-size: 3rem;
+        margin-bottom: 1.5rem;
+        padding: 1rem;
+        border-radius: 50%;
+        width: 80px;
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1.5rem;
+    }
+
+    .action-card:nth-child(1) .action-icon {
+        background: linear-gradient(135deg, #3498db, #2980b9);
+        color: white;
+    }
+
+    .action-card:nth-child(2) .action-icon {
+        background: linear-gradient(135deg, #27ae60, #229954);
+        color: white;
+    }
+
+    .action-card:nth-child(3) .action-icon {
+        background: linear-gradient(135deg, #f39c12, #e67e22);
+        color: white;
+    }
+
+    .action-card:nth-child(4) .action-icon {
+        background: linear-gradient(135deg, #e74c3c, #c0392b);
+        color: white;
+    }
+
+    .action-title {
+        font-size: 1.4rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        color: #2c3e50;
+    }
+
+    .action-description {
+        color: #7f8c8d;
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+
+    .recent-activity {
+        background: white;
+        border-radius: 1rem;
+        padding: 2rem;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        margin-top: 3rem;
+    }
+
+    .activity-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 2rem;
+        color: #2c3e50;
+    }
+
+    .activity-header i {
+        font-size: 1.5rem;
+        margin-right: 0.5rem;
+        color: #3498db;
+    }
+
+    .activity-item {
+        padding: 1rem;
+        border-left: 3px solid #3498db;
+        background: #f8f9fa;
+        margin-bottom: 1rem;
+        border-radius: 0 0.5rem 0.5rem 0;
+        transition: all 0.3s ease;
+    }
+
+    .activity-item:hover {
+        background: #e9ecef;
+        transform: translateX(5px);
+    }
+
+    .activity-time {
+        font-size: 0.85rem;
+        color: #7f8c8d;
+        margin-bottom: 0.25rem;
+    }
+
+    .activity-text {
+        font-weight: 500;
+        color: #2c3e50;
+    }
+
+    .welcome-message {
+        background: linear-gradient(135deg, #ecf0f1 0%, white 100%);
+        border-radius: 1rem;
+        padding: 2rem;
+        margin-bottom: 3rem;
+        border-left: 5px solid #3498db;
+    }
+
+    .pulse {
+        animation: pulse 2s infinite;
+    }
+
+    
+</style>
+
+<!-- Hero Section -->
+<div class="hero-section">
+    <div class="container">
+        <div class="hero-content text-center">
+            <h1 class="hero-title">
+                <i class="fas fa-graduation-cap me-3"></i>
+                Welcome to Student ERP
+            </h1>
+            <p class="hero-subtitle">
+                Your comprehensive platform for managing students, courses, and academic excellence
+            </p>
+            
+            <!-- Quick Stats -->
+            <div class="hero-stats">
+                <div class="row justify-content-center">
+                    <div class="col-md-2 col-sm-4 col-6">
+                        <div class="stat-card">
+                            <div class="stat-number">1,247</div>
+                            <div class="stat-label">Students</div>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-sm-4 col-6">
+                        <div class="stat-card">
+                            <div class="stat-number">89</div>
+                            <div class="stat-label">Courses</div>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-sm-4 col-6">
+                        <div class="stat-card">
+                            <div class="stat-number">3,521</div>
+                            <div class="stat-label">Enrollments</div>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-sm-4 col-6">
+                        <div class="stat-card">
+                            <div class="stat-number">94.2%</div>
+                            <div class="stat-label">Success Rate</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Welcome Message -->
+<div class="welcome-message">
+    <div class="row align-items-center">
+        <div class="col-md-8">
+            <h3 class="mb-2" style="color: #2c3e50;">
+                <i class="fas fa-hand-wave me-2" style="color: #f39c12;"></i>
+                Good Morning, Administrator!
+            </h3>
+            <p class="mb-0" style="color: #7f8c8d;">
+                Ready to manage your institution? Here's what you can do today to keep everything running smoothly.
+            </p>
+        </div>
+        <div class="col-md-4 text-end">
+            <div class="pulse">
+                <i class="fas fa-chart-line" style="font-size: 3rem; color: #3498db;"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Quick Actions -->
+<div class="quick-actions">
+    <h2 class="text-center mb-5" style="color: #2c3e50; font-weight: 700;">
+        <i class="fas fa-rocket me-2" style="color: #e74c3c;"></i>
+        Quick Actions
+    </h2>
+    <div class="row">
+        <div class="col-lg-3 col-md-6 mb-4">
+            <a href="/Students" class="action-card d-block">
+                <div class="action-icon">
+                    <i class="fas fa-user-graduate"></i>
+                </div>
+                <h4 class="action-title">Manage Students</h4>
+                <p class="action-description">
+                    Add new students, update information, view profiles, and track academic progress
+                </p>
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-4">
+            <a href="/Courses" class="action-card d-block">
+                <div class="action-icon">
+                    <i class="fas fa-book-open"></i>
+                </div>
+                <h4 class="action-title">Course Management</h4>
+                <p class="action-description">
+                    Create courses, manage curriculum, assign instructors, and track course completion
+                </p>
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-4">
+            <a href="/Enrollments" class="action-card d-block">
+                <div class="action-icon">
+                    <i class="fas fa-clipboard-check"></i>
+                </div>
+                <h4 class="action-title">Enrollments</h4>
+                <p class="action-description">
+                    Process enrollments, manage class schedules, and generate attendance reports
+                </p>
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-4">
+            <a href="/Enrollments/Reports" class="action-card d-block">
+                <div class="action-icon">
+                    <i class="fas fa-chart-bar"></i>
+                </div>
+                <h4 class="action-title">Reports & Analytics</h4>
+                <p class="action-description">
+                    Generate detailed reports, view analytics, and track institutional performance
+                </p>
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Recent Activity -->
+<div class="recent-activity">
+    <div class="activity-header">
+        <i class="fas fa-clock"></i>
+        <h3 class="mb-0 ms-2">Recent Activity</h3>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-6">
+            <div class="activity-item">
+                <div class="activity-time">2 hours ago</div>
+                <div class="activity-text">
+                    <i class="fas fa-user-plus me-2 text-success"></i>
+                    15 new students registered for Computer Science program
+                </div>
+            </div>
+            <div class="activity-item">
+                <div class="activity-time">4 hours ago</div>
+                <div class="activity-text">
+                    <i class="fas fa-book me-2 text-primary"></i>
+                    Mathematics 101 course materials updated
+                </div>
+            </div>
+            <div class="activity-item">
+                <div class="activity-time">6 hours ago</div>
+                <div class="activity-text">
+                    <i class="fas fa-trophy me-2 text-warning"></i>
+                    Grade reports generated for Spring semester
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="activity-item">
+                <div class="activity-time">1 day ago</div>
+                <div class="activity-text">
+                    <i class="fas fa-calendar me-2 text-info"></i>
+                    Fall 2025 enrollment period started
+                </div>
+            </div>
+            <div class="activity-item">
+                <div class="activity-time">2 days ago</div>
+                <div class="activity-text">
+                    <i class="fas fa-graduation-cap me-2 text-success"></i>
+                    127 students completed their final exams
+                </div>
+            </div>
+            <div class="activity-item">
+                <div class="activity-time">3 days ago</div>
+                <div class="activity-text">
+                    <i class="fas fa-bell me-2 text-danger"></i>
+                    System backup completed successfully
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Add some interactive animations
+    document.addEventListener('DOMContentLoaded', function() {
+        // Animate stats on load
+        const statNumbers = document.querySelectorAll('.stat-number');
+        statNumbers.forEach(stat => {
+            const finalNumber = stat.textContent;
+            stat.textContent = '0';
+            animateNumber(stat, finalNumber, 2000);
+        });
+        
+        // Add hover effect to activity items
+        const activityItems = document.querySelectorAll('.activity-item');
+        activityItems.forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                this.style.borderLeftColor = '#e74c3c';
+            });
+            item.addEventListener('mouseleave', function() {
+                this.style.borderLeftColor = '#3498db';
+            });
+        });
+    });
+
+    function animateNumber(element, finalNumber, duration) {
+        const isPercentage = finalNumber.includes('%');
+        const numericPart = parseFloat(finalNumber.replace(/[^0-9.]/g, ''));
+        const suffix = finalNumber.replace(/[0-9.]/g, '');
+        
+        let startTime = null;
+        
+        function animate(currentTime) {
+            if (!startTime) startTime = currentTime;
+            const progress = Math.min((currentTime - startTime) / duration, 1);
+            
+            const currentNumber = progress * numericPart;
+            const displayNumber = isPercentage ? currentNumber.toFixed(1) : Math.floor(currentNumber).toLocaleString();
+            
+            element.textContent = displayNumber + suffix;
+            
+            if (progress < 1) {
+                requestAnimationFrame(animate);
+            }
+        }
+        
+        requestAnimationFrame(animate);
+    }
+</script>

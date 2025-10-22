@@ -1,0 +1,526 @@
+@model StudentManagement.Web.Models.Student
+
+@{
+    ViewData["Title"] = "Edit Student";
+}
+
+<div class="page-header">
+    <div class="row align-items-center">
+        <div class="col-8">
+            <h1 class="page-title">
+                <i class="fas fa-user-edit text-warning me-3"></i>
+                Edit Student Profile
+            </h1>
+            <p class="page-subtitle">Update information for @Model.FirstName @Model.LastName</p>
+        </div>
+        <div class="col-4 text-end">
+            <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-info btn-lg">
+                <i class="fas fa-eye me-2"></i>
+                View Profile
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="edit-container">
+    <div class="row">
+        <div class="col-4">
+            <div class="profile-preview-card">
+                <div class="preview-header">
+                    <h5 class="preview-title">
+                        <i class="fas fa-user-circle me-2"></i>
+                        Profile Preview
+                    </h5>
+                </div>
+                <div class="preview-content">
+                    <div class="preview-avatar">
+                        <span id="avatarPreview">@(Model.FirstName?.Substring(0, 1).ToUpper())@(Model.LastName?.Substring(0, 1).ToUpper())</span>
+                    </div>
+                    <div class="preview-info">
+                        <h4 class="preview-name" id="namePreview">@Model.FirstName @Model.LastName</h4>
+                        <p class="preview-id">Student ID: #@Model.Id.ToString("D6")</p>
+                        <div class="preview-details">
+                            <div class="preview-item">
+                                <i class="fas fa-envelope text-muted me-2"></i>
+                                <span id="emailPreview">@(string.IsNullOrEmpty(Model.Email) ? "No email provided" : Model.Email)</span>
+                            </div>
+                            <div class="preview-item">
+                                <i class="fas fa-birthday-cake text-muted me-2"></i>
+                                <span id="datePreview">
+                                    @(Model.DateOfBirth?.ToString("MMM dd, yyyy") ?? "Date not specified")
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="preview-footer">
+                    <small class="text-muted">
+                        <i class="fas fa-info-circle me-1"></i>
+                        Preview updates as you type
+                    </small>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-8">
+            <div class="edit-form-card">
+                <div class="form-header">
+                    <h4 class="form-title">
+                        <i class="fas fa-edit me-2"></i>
+                        Student Information
+                    </h4>
+                    <p class="form-subtitle">Please fill in all required fields marked with *</p>
+                </div>
+                
+                <form asp-action="Edit" id="editForm">
+                    <div class="form-body">
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger validation-summary" role="alert">
+                            <i class="fas fa-exclamation-triangle me-2"></i>
+                            Please correct the following errors:
+                        </div>
+                        
+                        <input type="hidden" asp-for="Id" />
+                        
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label asp-for="FirstName" class="form-label">
+                                        <i class="fas fa-user me-2"></i>
+                                        @Html.DisplayNameFor(model => model.FirstName) *
+                                    </label>
+                                    <input asp-for="FirstName" class="form-control form-control-lg" 
+                                           placeholder="Enter first name" id="firstNameInput" />
+                                    <span asp-validation-for="FirstName" class="validation-message"></span>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label asp-for="LastName" class="form-label">
+                                        <i class="fas fa-user me-2"></i>
+                                        @Html.DisplayNameFor(model => model.LastName) *
+                                    </label>
+                                    <input asp-for="LastName" class="form-control form-control-lg" 
+                                           placeholder="Enter last name" id="lastNameInput" />
+                                    <span asp-validation-for="LastName" class="validation-message"></span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label asp-for="Email" class="form-label">
+                                <i class="fas fa-envelope me-2"></i>
+                                @Html.DisplayNameFor(model => model.Email)
+                            </label>
+                            <input asp-for="Email" class="form-control form-control-lg" 
+                                   placeholder="Enter email address" id="emailInput" 
+                                   type="email" />
+                            <span asp-validation-for="Email" class="validation-message"></span>
+                            <div class="form-help">
+                                <small class="text-muted">
+                                    <i class="fas fa-info-circle me-1"></i>
+                                    We'll use this email for important notifications
+                                </small>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label asp-for="DateOfBirth" class="form-label">
+                                <i class="fas fa-calendar me-2"></i>
+                                @Html.DisplayNameFor(model => model.DateOfBirth)
+                            </label>
+                            <input asp-for="DateOfBirth" class="form-control form-control-lg" 
+                                   type="date" id="dateInput" />
+                            <span asp-validation-for="DateOfBirth" class="validation-message"></span>
+                            <div class="form-help">
+                                <small class="text-muted">
+                                    <i class="fas fa-info-circle me-1"></i>
+                                    Used for age calculation and academic eligibility
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-footer">
+                        <div class="row align-items-center">
+                            <div class="col-6">
+                                <a asp-action="Index" class="btn btn-secondary btn-lg">
+                                    <i class="fas fa-arrow-left me-2"></i>
+                                    Back to List
+                                </a>
+                            </div>
+                            <div class="col-6 text-end">
+                                <button type="button" class="btn btn-outline-secondary btn-lg me-3" onclick="resetForm()">
+                                    <i class="fas fa-undo me-2"></i>
+                                    Reset
+                                </button>
+                                <button type="submit" class="btn btn-success btn-lg">
+                                    <i class="fas fa-save me-2"></i>
+                                    Save Changes
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    :root {
+        --primary-color: #2c3e50;
+        --secondary-color: #3498db;
+        --success-color: #27ae60;
+        --warning-color: #f39c12;
+        --danger-color: #e74c3c;
+        --info-color: #17a2b8;
+        --light-bg: #f8f9fa;
+        --border-color: #e9ecef;
+        --text-muted: #6c757d;
+        --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .page-header {
+        background: linear-gradient(135deg, var(--light-bg) 0%, #ffffff 100%);
+        padding: 2.5rem;
+        border-radius: 0.75rem;
+        border: 1px solid var(--border-color);
+        margin-bottom: 2rem;
+        box-shadow: var(--shadow);
+    }
+
+    .page-title {
+        color: var(--primary-color);
+        font-weight: 700;
+        font-size: 2.25rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .page-subtitle {
+        color: var(--text-muted);
+        font-size: 1.1rem;
+        margin-bottom: 0;
+    }
+
+    .edit-container {
+        margin-bottom: 2rem;
+    }
+
+    .profile-preview-card {
+        background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+        border-radius: 0.75rem;
+        box-shadow: var(--shadow-lg);
+        color: white;
+        position: sticky;
+        top: 2rem;
+    }
+
+    .preview-header {
+        padding: 1.5rem 1.5rem 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .preview-title {
+        color: white;
+        font-weight: 600;
+        margin-bottom: 1rem;
+    }
+
+    .preview-content {
+        padding: 2rem 1.5rem;
+        text-align: center;
+    }
+
+    .preview-avatar {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1.5rem;
+        border: 3px solid rgba(255, 255, 255, 0.3);
+        font-size: 2rem;
+        font-weight: 700;
+        backdrop-filter: blur(10px);
+    }
+
+    .preview-name {
+        font-size: 1.4rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+    }
+
+    .preview-id {
+        color: rgba(255, 255, 255, 0.8);
+        margin-bottom: 1.5rem;
+        font-size: 0.9rem;
+    }
+
+    .preview-details {
+        text-align: left;
+    }
+
+    .preview-item {
+        display: flex;
+        align-items: center;
+        padding: 0.75rem 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        font-size: 0.9rem;
+    }
+
+    .preview-item:last-child {
+        border-bottom: none;
+    }
+
+    .preview-footer {
+        padding: 1rem 1.5rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        text-align: center;
+    }
+
+    .edit-form-card {
+        background: white;
+        border-radius: 0.75rem;
+        box-shadow: var(--shadow-lg);
+        border: 1px solid var(--border-color);
+    }
+
+    .form-header {
+        background: var(--light-bg);
+        padding: 2rem;
+        border-bottom: 2px solid var(--border-color);
+        border-radius: 0.75rem 0.75rem 0 0;
+    }
+
+    .form-title {
+        color: var(--primary-color);
+        font-weight: 600;
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .form-subtitle {
+        color: var(--text-muted);
+        margin-bottom: 0;
+    }
+
+    .form-body {
+        padding: 2.5rem;
+    }
+
+    .form-group {
+        margin-bottom: 2rem;
+    }
+
+    .form-label {
+        font-weight: 600;
+        color: var(--primary-color);
+        margin-bottom: 0.75rem;
+        display: flex;
+        align-items: center;
+        font-size: 1rem;
+    }
+
+    .form-control {
+        border: 2px solid var(--border-color);
+        border-radius: 0.5rem;
+        padding: 0.75rem 1rem;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        background-color: white;
+    }
+
+    .form-control-lg {
+        padding: 1rem 1.25rem;
+        font-size: 1.1rem;
+    }
+
+    .form-control:focus {
+        border-color: var(--secondary-color);
+        box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+        outline: none;
+    }
+
+    .form-control:hover {
+        border-color: var(--secondary-color);
+    }
+
+    .form-help {
+        margin-top: 0.5rem;
+    }
+
+    .validation-message {
+        color: var(--danger-color);
+        font-size: 0.875rem;
+        margin-top: 0.5rem;
+        display: block;
+        font-weight: 500;
+    }
+
+    .validation-summary {
+        margin-bottom: 2rem;
+        border: none;
+        border-left: 4px solid var(--danger-color);
+    }
+
+    .form-footer {
+        background: var(--light-bg);
+        padding: 2rem;
+        border-top: 2px solid var(--border-color);
+        border-radius: 0 0 0.75rem 0.75rem;
+    }
+
+    .btn {
+        padding: 0.75rem 1.5rem;
+        font-weight: 500;
+        border-radius: 0.5rem;
+        transition: all 0.3s ease;
+        border: none;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        cursor: pointer;
+    }
+
+    .btn-lg {
+        padding: 1rem 2rem;
+        font-size: 1.1rem;
+    }
+
+    .btn-success {
+        background: linear-gradient(135deg, var(--success-color) 0%, #229954 100%);
+        color: white;
+    }
+
+    .btn-secondary {
+        background: #6c757d;
+        color: white;
+    }
+
+    .btn-info {
+        background: var(--info-color);
+        color: white;
+    }
+
+    .btn-outline-secondary {
+        background: transparent;
+        color: #6c757d;
+        border: 2px solid #6c757d;
+    }
+
+    .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-lg);
+        text-decoration: none;
+    }
+
+    .btn-success:hover {
+        color: white;
+    }
+
+    .btn-secondary:hover {
+        color: white;
+    }
+
+    .btn-info:hover {
+        color: white;
+    }
+
+    .btn-outline-secondary:hover {
+        background: #6c757d;
+        color: white;
+    }
+
+    .alert {
+        border-radius: 0.5rem;
+        padding: 1rem;
+        border: none;
+    }
+
+    .alert-danger {
+        background-color: rgba(231, 76, 60, 0.1);
+        color: var(--danger-color);
+    }
+
+    .text-muted {
+        color: var(--text-muted) !important;
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Live preview functionality
+        const firstNameInput = document.getElementById('firstNameInput');
+        const lastNameInput = document.getElementById('lastNameInput');
+        const emailInput = document.getElementById('emailInput');
+        const dateInput = document.getElementById('dateInput');
+        
+        const namePreview = document.getElementById('namePreview');
+        const emailPreview = document.getElementById('emailPreview');
+        const datePreview = document.getElementById('datePreview');
+        const avatarPreview = document.getElementById('avatarPreview');
+
+        function updatePreview() {
+            const firstName = firstNameInput.value || 'First';
+            const lastName = lastNameInput.value || 'Last';
+            const email = emailInput.value || 'No email provided';
+            const date = dateInput.value ? new Date(dateInput.value).toLocaleDateString('en-US', { 
+                year: 'numeric', 
+                month: 'short', 
+                day: 'numeric' 
+            }) : 'Date not specified';
+
+            namePreview.textContent = `${firstName} ${lastName}`;
+            emailPreview.textContent = email;
+            datePreview.textContent = date;
+            avatarPreview.textContent = `${firstName.charAt(0).toUpperCase()}${lastName.charAt(0).toUpperCase()}`;
+        }
+
+        // Add event listeners
+        firstNameInput.addEventListener('input', updatePreview);
+        lastNameInput.addEventListener('input', updatePreview);
+        emailInput.addEventListener('input', updatePreview);
+        dateInput.addEventListener('input', updatePreview);
+
+        // Form validation enhancement
+        const form = document.getElementById('editForm');
+        form.addEventListener('submit', function(e) {
+            // Add loading state
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Saving...';
+            submitBtn.disabled = true;
+
+            // Reset after 3 seconds if form doesn't actually submit
+            setTimeout(() => {
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }, 3000);
+        });
+
+        // Add input focus effects
+        const inputs = document.querySelectorAll('.form-control');
+        inputs.forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentElement.classList.add('focused');
+            });
+            
+            input.addEventListener('blur', function() {
+                this.parentElement.classList.remove('focused');
+            });
+        });
+    });
+
+    function resetForm() {
+        if (confirm('Are you sure you want to reset all changes? This will restore the original values.')) {
+            document.getElementById('editForm').reset();
+            // Trigger preview update after reset
+            setTimeout(() => {
+                document.getElementById('firstNameInput').dispatchEvent(new Event('input'));
+            }, 100);
+        }
+    }
+</script>

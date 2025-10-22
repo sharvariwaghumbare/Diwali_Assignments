@@ -1,0 +1,466 @@
+@model StudentManagement.Web.Models.Student
+
+@{
+    ViewData["Title"] = "Student Details";
+}
+
+<div class="page-header">
+    <div class="row align-items-center">
+        <div class="col-8">
+            <h1 class="page-title">
+                <i class="fas fa-user-graduate text-primary me-3"></i>
+                Student Profile
+            </h1>
+            <p class="page-subtitle">Detailed information for @Model.FirstName @Model.LastName</p>
+        </div>
+        <div class="col-4 text-end">
+            <div class="action-buttons">
+                <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-warning btn-lg">
+                    <i class="fas fa-edit me-2"></i>
+                    Edit Student
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="student-profile-container">
+    <div class="row">
+        <div class="col-4">
+            <div class="profile-sidebar">
+                <div class="profile-avatar-section">
+                    <div class="profile-avatar">
+                        @(Model.FirstName?.Substring(0, 1).ToUpper())@(Model.LastName?.Substring(0, 1).ToUpper())
+                    </div>
+                    <h3 class="student-name">@Model.FirstName @Model.LastName</h3>
+                    <p class="student-id">Student ID: #@Model.Id.ToString("D6")</p>
+                </div>
+                
+                <div class="quick-stats">
+                    <div class="stat-item">
+                        <i class="fas fa-calendar-alt"></i>
+                        <div class="stat-content">
+                            <span class="stat-label">Member Since</span>
+                            <span class="stat-value">2025</span>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-graduation-cap"></i>
+                        <div class="stat-content">
+                            <span class="stat-label">Status</span>
+                            <span class="stat-value status-active">Active</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-8">
+            <div class="profile-content">
+                <div class="info-card">
+                    <div class="card-header">
+                        <h4 class="card-title">
+                            <i class="fas fa-info-circle me-2"></i>
+                            Personal Information
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <div class="info-label">
+                                    <i class="fas fa-user me-2"></i>
+                                    @Html.DisplayNameFor(model => model.FirstName)
+                                </div>
+                                <div class="info-value">
+                                    @Html.DisplayFor(model => model.FirstName)
+                                </div>
+                            </div>
+                            
+                            <div class="info-item">
+                                <div class="info-label">
+                                    <i class="fas fa-user me-2"></i>
+                                    @Html.DisplayNameFor(model => model.LastName)
+                                </div>
+                                <div class="info-value">
+                                    @Html.DisplayFor(model => model.LastName)
+                                </div>
+                            </div>
+                            
+                            <div class="info-item">
+                                <div class="info-label">
+                                    <i class="fas fa-envelope me-2"></i>
+                                    @Html.DisplayNameFor(model => model.Email)
+                                </div>
+                                <div class="info-value">
+                                    @if (!string.IsNullOrEmpty(Model.Email))
+                                    {
+                                        <a href="mailto:@Model.Email" class="email-link">
+                                            @Html.DisplayFor(model => model.Email)
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">Not provided</span>
+                                    }
+                                </div>
+                            </div>
+                            
+                            <div class="info-item">
+                                <div class="info-label">
+                                    <i class="fas fa-birthday-cake me-2"></i>
+                                    @Html.DisplayNameFor(model => model.DateOfBirth)
+                                </div>
+                                <div class="info-value">
+                                    @if (Model.DateOfBirth.HasValue)
+                                    {
+                                        <span>@Model.DateOfBirth.Value.ToString("MMMM dd, yyyy")</span>
+                                        <small class="age-display">
+                                            (Age: @((DateTime.Now - Model.DateOfBirth.Value).Days / 365) years)
+                                        </small>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">Not specified</span>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="info-card mt-4">
+                    <div class="card-header">
+                        <h4 class="card-title">
+                            <i class="fas fa-chart-line me-2"></i>
+                            Academic Overview
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="academic-stats">
+                            <div class="academic-item">
+                                <div class="academic-number">0</div>
+                                <div class="academic-label">Total Enrollments</div>
+                            </div>
+                            <div class="academic-item">
+                                <div class="academic-number">0</div>
+                                <div class="academic-label">Completed Courses</div>
+                            </div>
+                            <div class="academic-item">
+                                <div class="academic-number">--</div>
+                                <div class="academic-label">Average Grade</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="action-footer">
+    <div class="row">
+        <div class="col-6">
+            <a asp-action="Index" class="btn btn-secondary btn-lg">
+                <i class="fas fa-arrow-left me-2"></i>
+                Back to Students
+            </a>
+        </div>
+        <div class="col-6 text-end">
+            <a asp-controller="Enrollments" asp-action="Create" class="btn btn-success btn-lg me-3">
+                <i class="fas fa-plus me-2"></i>
+                Enroll in Course
+            </a>
+            <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-warning btn-lg">
+                <i class="fas fa-edit me-2"></i>
+                Edit Profile
+            </a>
+        </div>
+    </div>
+</div>
+
+<style>
+    :root {
+        --primary-color: #2c3e50;
+        --secondary-color: #3498db;
+        --success-color: #27ae60;
+        --warning-color: #f39c12;
+        --danger-color: #e74c3c;
+        --light-bg: #f8f9fa;
+        --border-color: #e9ecef;
+        --text-muted: #6c757d;
+        --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .page-header {
+        background: linear-gradient(135deg, var(--light-bg) 0%, #ffffff 100%);
+        padding: 2.5rem;
+        border-radius: 0.75rem;
+        border: 1px solid var(--border-color);
+        margin-bottom: 2rem;
+        box-shadow: var(--shadow);
+    }
+
+    .page-title {
+        color: var(--primary-color);
+        font-weight: 700;
+        font-size: 2.25rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .page-subtitle {
+        color: var(--text-muted);
+        font-size: 1.1rem;
+        margin-bottom: 0;
+    }
+
+    .student-profile-container {
+        margin-bottom: 2rem;
+    }
+
+    .profile-sidebar {
+        background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+        border-radius: 0.75rem;
+        padding: 2rem;
+        color: white;
+        box-shadow: var(--shadow-lg);
+        height: fit-content;
+    }
+
+    .profile-avatar-section {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .profile-avatar {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin: 0 auto 1rem;
+        border: 4px solid rgba(255, 255, 255, 0.3);
+        backdrop-filter: blur(10px);
+    }
+
+    .student-name {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: white;
+    }
+
+    .student-id {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 0.95rem;
+        margin-bottom: 0;
+    }
+
+    .quick-stats {
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+        padding-top: 1.5rem;
+    }
+
+    .stat-item {
+        display: flex;
+        align-items: center;
+        padding: 0.75rem 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .stat-item:last-child {
+        border-bottom: none;
+    }
+
+    .stat-item i {
+        font-size: 1.2rem;
+        margin-right: 1rem;
+        width: 20px;
+        color: rgba(255, 255, 255, 0.8);
+    }
+
+    .stat-content {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .stat-label {
+        font-size: 0.85rem;
+        color: rgba(255, 255, 255, 0.7);
+        margin-bottom: 0.25rem;
+    }
+
+    .stat-value {
+        font-weight: 600;
+        font-size: 1rem;
+    }
+
+    .status-active {
+        color: #2ecc71;
+    }
+
+    .profile-content {
+        padding-left: 1.5rem;
+    }
+
+    .info-card {
+        background: white;
+        border-radius: 0.75rem;
+        box-shadow: var(--shadow);
+        border: 1px solid var(--border-color);
+        overflow: hidden;
+    }
+
+    .card-header {
+        background: var(--light-bg);
+        padding: 1.5rem 2rem;
+        border-bottom: 2px solid var(--border-color);
+    }
+
+    .card-title {
+        color: var(--primary-color);
+        font-weight: 600;
+        font-size: 1.25rem;
+        margin-bottom: 0;
+    }
+
+    .card-body {
+        padding: 2rem;
+    }
+
+    .info-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .info-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem;
+        background: var(--light-bg);
+        border-radius: 0.5rem;
+        border: 1px solid var(--border-color);
+        transition: all 0.3s ease;
+    }
+
+    .info-item:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow);
+    }
+
+    .info-label {
+        font-weight: 600;
+        color: var(--primary-color);
+        font-size: 0.95rem;
+        display: flex;
+        align-items: center;
+    }
+
+    .info-value {
+        font-weight: 500;
+        color: var(--primary-color);
+        font-size: 1.05rem;
+    }
+
+    .email-link {
+        color: var(--secondary-color);
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    .email-link:hover {
+        color: var(--primary-color);
+        text-decoration: underline;
+    }
+
+    .age-display {
+        display: block;
+        color: var(--text-muted);
+        font-size: 0.85rem;
+        margin-top: 0.25rem;
+    }
+
+    .academic-stats {
+        display: flex;
+        justify-content: space-around;
+        text-align: center;
+    }
+
+    .academic-item {
+        flex: 1;
+    }
+
+    .academic-number {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--secondary-color);
+        margin-bottom: 0.5rem;
+    }
+
+    .academic-label {
+        color: var(--text-muted);
+        font-weight: 500;
+        font-size: 0.9rem;
+    }
+
+    .action-footer {
+        background: var(--light-bg);
+        padding: 2rem;
+        border-radius: 0.75rem;
+        border: 1px solid var(--border-color);
+        box-shadow: var(--shadow);
+    }
+
+    .btn {
+        padding: 0.75rem 1.5rem;
+        font-weight: 500;
+        border-radius: 0.5rem;
+        transition: all 0.3s ease;
+        border: none;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+    }
+
+    .btn-lg {
+        padding: 1rem 2rem;
+        font-size: 1.1rem;
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-color) 100%);
+        color: white;
+    }
+
+    .btn-secondary {
+        background: #6c757d;
+        color: white;
+    }
+
+    .btn-warning {
+        background: var(--warning-color);
+        color: white;
+    }
+
+    .btn-success {
+        background: var(--success-color);
+        color: white;
+    }
+
+    .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-lg);
+        text-decoration: none;
+        color: white;
+    }
+
+    .text-muted {
+        color: var(--text-muted) !important;
+    }
+</style>
