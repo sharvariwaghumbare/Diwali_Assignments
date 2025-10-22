@@ -1,0 +1,19 @@
+# Build
+bin/
+obj/
+
+# VS files
+.vs/
+*.user
+*.suo
+
+# Logs / Databases
+*.log
+*.db
+*.sqlite
+
+# System
+.DS_Store
+
+# EF Core
+Migrations/
