@@ -1,8 +1,4 @@
-# Student Management System - ASP.NET Core MVC Tutorial
-
-A complete step-by-step tutorial to build a Student Management System using ASP.NET Core MVC, Entity Framework Core, and SQLite.
-
-## 🎯 What You'll Build
+Day 7 : Student Management System - ASP.NET Core MVC Tutorial
 
 A fully functional web application that allows you to:
 - Manage Students (Create, Read, Update, Delete)
@@ -17,9 +13,7 @@ Before starting, make sure you have:
 - A code editor (Visual Studio, VS Code, or any text editor)
 - Basic knowledge of C# and web development concepts
 
-## 📁 Final Project Structure
 
-```
 StudentManagement/
 ├── StudentManagement.sln
 └── StudentManagement.Web/
@@ -53,9 +47,6 @@ StudentManagement/
         └── images/
 ```
 
-## 🚀 Step-by-Step Tutorial
-
-### Step 1: Create the Project
 
 Open your terminal/command prompt and run:
 
@@ -413,23 +404,3 @@ Once you have the basic system working, you can enhance it with:
 - File uploads for student photos
 - Academic year and semester management
 - Attendance tracking
-
-## 📚 Learning Resources
-
-- [ASP.NET Core Documentation](https://docs.microsoft.com/en-us/aspnet/core/)
-- [Entity Framework Core Documentation](https://docs.microsoft.com/en-us/ef/core/)
-- [Bootstrap Documentation](https://getbootstrap.com/docs/)
-
-## 🤝 Contributing
-
-Feel free to fork this project and submit pull requests for any improvements!
-
-## 📄 License
-
-This project is open source and available under the [MIT License](LICENSE).
-
----
-
-**Happy Coding! 🎯**
-
-If you encounter any issues or have questions, please create an issue in the repository or refer to the troubleshooting section above.
