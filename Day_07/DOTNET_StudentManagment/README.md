@@ -1,4 +1,4 @@
-Day 7 : Student Management System - ASP.NET Core MVC Tutorial
+Day 7 : Student Management System - ASP.NETCoreMVC 
 
 A fully functional web application that allows you to:
 - Manage Students (Create, Read, Update, Delete)
