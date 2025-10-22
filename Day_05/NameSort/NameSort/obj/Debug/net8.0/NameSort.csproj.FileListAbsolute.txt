@@ -1,0 +1,15 @@
+C:\Users\users_\Diwali_Assignments\Day_05\NameSort\NameSort\bin\Debug\net8.0\NameSort.exe
+C:\Users\users_\Diwali_Assignments\Day_05\NameSort\NameSort\bin\Debug\net8.0\NameSort.deps.json
+C:\Users\users_\Diwali_Assignments\Day_05\NameSort\NameSort\bin\Debug\net8.0\NameSort.runtimeconfig.json
+C:\Users\users_\Diwali_Assignments\Day_05\NameSort\NameSort\bin\Debug\net8.0\NameSort.dll
+C:\Users\users_\Diwali_Assignments\Day_05\NameSort\NameSort\bin\Debug\net8.0\NameSort.pdb
+C:\Users\users_\Diwali_Assignments\Day_05\NameSort\NameSort\obj\Debug\net8.0\NameSort.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\users_\Diwali_Assignments\Day_05\NameSort\NameSort\obj\Debug\net8.0\NameSort.AssemblyInfoInputs.cache
+C:\Users\users_\Diwali_Assignments\Day_05\NameSort\NameSort\obj\Debug\net8.0\NameSort.AssemblyInfo.cs
+C:\Users\users_\Diwali_Assignments\Day_05\NameSort\NameSort\obj\Debug\net8.0\NameSort.csproj.CoreCompileInputs.cache
+C:\Users\users_\Diwali_Assignments\Day_05\NameSort\NameSort\obj\Debug\net8.0\NameSort.sourcelink.json
+C:\Users\users_\Diwali_Assignments\Day_05\NameSort\NameSort\obj\Debug\net8.0\NameSort.dll
+C:\Users\users_\Diwali_Assignments\Day_05\NameSort\NameSort\obj\Debug\net8.0\refint\NameSort.dll
+C:\Users\users_\Diwali_Assignments\Day_05\NameSort\NameSort\obj\Debug\net8.0\NameSort.pdb
+C:\Users\users_\Diwali_Assignments\Day_05\NameSort\NameSort\obj\Debug\net8.0\NameSort.genruntimeconfig.cache
+C:\Users\users_\Diwali_Assignments\Day_05\NameSort\NameSort\obj\Debug\net8.0\ref\NameSort.dll

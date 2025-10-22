@@ -1,0 +1,15 @@
+C:\Users\users_\Diwali_Assignments\Day_05\Challege_ArrayRotator\Challege_ArrayRotator\bin\Debug\net8.0\Challege_ArrayRotator.exe
+C:\Users\users_\Diwali_Assignments\Day_05\Challege_ArrayRotator\Challege_ArrayRotator\bin\Debug\net8.0\Challege_ArrayRotator.deps.json
+C:\Users\users_\Diwali_Assignments\Day_05\Challege_ArrayRotator\Challege_ArrayRotator\bin\Debug\net8.0\Challege_ArrayRotator.runtimeconfig.json
+C:\Users\users_\Diwali_Assignments\Day_05\Challege_ArrayRotator\Challege_ArrayRotator\bin\Debug\net8.0\Challege_ArrayRotator.dll
+C:\Users\users_\Diwali_Assignments\Day_05\Challege_ArrayRotator\Challege_ArrayRotator\bin\Debug\net8.0\Challege_ArrayRotator.pdb
+C:\Users\users_\Diwali_Assignments\Day_05\Challege_ArrayRotator\Challege_ArrayRotator\obj\Debug\net8.0\Challege_ArrayRotator.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\users_\Diwali_Assignments\Day_05\Challege_ArrayRotator\Challege_ArrayRotator\obj\Debug\net8.0\Challege_ArrayRotator.AssemblyInfoInputs.cache
+C:\Users\users_\Diwali_Assignments\Day_05\Challege_ArrayRotator\Challege_ArrayRotator\obj\Debug\net8.0\Challege_ArrayRotator.AssemblyInfo.cs
+C:\Users\users_\Diwali_Assignments\Day_05\Challege_ArrayRotator\Challege_ArrayRotator\obj\Debug\net8.0\Challege_ArrayRotator.csproj.CoreCompileInputs.cache
+C:\Users\users_\Diwali_Assignments\Day_05\Challege_ArrayRotator\Challege_ArrayRotator\obj\Debug\net8.0\Challege_ArrayRotator.sourcelink.json
+C:\Users\users_\Diwali_Assignments\Day_05\Challege_ArrayRotator\Challege_ArrayRotator\obj\Debug\net8.0\Challege_ArrayRotator.dll
+C:\Users\users_\Diwali_Assignments\Day_05\Challege_ArrayRotator\Challege_ArrayRotator\obj\Debug\net8.0\refint\Challege_ArrayRotator.dll
+C:\Users\users_\Diwali_Assignments\Day_05\Challege_ArrayRotator\Challege_ArrayRotator\obj\Debug\net8.0\Challege_ArrayRotator.pdb
+C:\Users\users_\Diwali_Assignments\Day_05\Challege_ArrayRotator\Challege_ArrayRotator\obj\Debug\net8.0\Challege_ArrayRotator.genruntimeconfig.cache
+C:\Users\users_\Diwali_Assignments\Day_05\Challege_ArrayRotator\Challege_ArrayRotator\obj\Debug\net8.0\ref\Challege_ArrayRotator.dll

@@ -1,0 +1,15 @@
+C:\Users\users_\Diwali_Assignments\Day_05\LINQ query i\LINQ query i\bin\Debug\net8.0\LINQ query i.exe
+C:\Users\users_\Diwali_Assignments\Day_05\LINQ query i\LINQ query i\bin\Debug\net8.0\LINQ query i.deps.json
+C:\Users\users_\Diwali_Assignments\Day_05\LINQ query i\LINQ query i\bin\Debug\net8.0\LINQ query i.runtimeconfig.json
+C:\Users\users_\Diwali_Assignments\Day_05\LINQ query i\LINQ query i\bin\Debug\net8.0\LINQ query i.dll
+C:\Users\users_\Diwali_Assignments\Day_05\LINQ query i\LINQ query i\bin\Debug\net8.0\LINQ query i.pdb
+C:\Users\users_\Diwali_Assignments\Day_05\LINQ query i\LINQ query i\obj\Debug\net8.0\LINQ query i.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\users_\Diwali_Assignments\Day_05\LINQ query i\LINQ query i\obj\Debug\net8.0\LINQ query i.AssemblyInfoInputs.cache
+C:\Users\users_\Diwali_Assignments\Day_05\LINQ query i\LINQ query i\obj\Debug\net8.0\LINQ query i.AssemblyInfo.cs
+C:\Users\users_\Diwali_Assignments\Day_05\LINQ query i\LINQ query i\obj\Debug\net8.0\LINQ query i.csproj.CoreCompileInputs.cache
+C:\Users\users_\Diwali_Assignments\Day_05\LINQ query i\LINQ query i\obj\Debug\net8.0\LINQ query i.sourcelink.json
+C:\Users\users_\Diwali_Assignments\Day_05\LINQ query i\LINQ query i\obj\Debug\net8.0\LINQ query i.dll
+C:\Users\users_\Diwali_Assignments\Day_05\LINQ query i\LINQ query i\obj\Debug\net8.0\refint\LINQ query i.dll
+C:\Users\users_\Diwali_Assignments\Day_05\LINQ query i\LINQ query i\obj\Debug\net8.0\LINQ query i.pdb
+C:\Users\users_\Diwali_Assignments\Day_05\LINQ query i\LINQ query i\obj\Debug\net8.0\LINQ query i.genruntimeconfig.cache
+C:\Users\users_\Diwali_Assignments\Day_05\LINQ query i\LINQ query i\obj\Debug\net8.0\ref\LINQ query i.dll

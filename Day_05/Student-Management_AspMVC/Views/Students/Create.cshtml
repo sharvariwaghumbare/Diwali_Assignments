@@ -1,0 +1,752 @@
+@model StudentManagement.Web.Models.Student
+
+@{
+    ViewData["Title"] = "Create Student";
+}
+
+<div class="page-header">
+    <div class="row align-items-center">
+        <div class="col-8">
+            <h1 class="page-title">
+                <i class="fas fa-user-plus text-success me-3"></i>
+                Create New Student
+            </h1>
+            <p class="page-subtitle">Add a new student to the management system</p>
+        </div>
+        <div class="col-4 text-end">
+            <a asp-action="Index" class="btn btn-outline-secondary btn-lg">
+                <i class="fas fa-users me-2"></i>
+                View All Students
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="create-container">
+    <div class="row">
+        <div class="col-4">
+            <div class="preview-card">
+                <div class="preview-header">
+                    <h5 class="preview-title">
+                        <i class="fas fa-eye me-2"></i>
+                        Live Preview
+                    </h5>
+                </div>
+                <div class="preview-content">
+                    <div class="preview-avatar">
+                        <span id="avatarPreview">NS</span>
+                    </div>
+                    <div class="preview-info">
+                        <h4 class="preview-name" id="namePreview">New Student</h4>
+                        <p class="preview-status">
+                            <i class="fas fa-circle text-success me-2"></i>
+                            Ready to Create
+                        </p>
+                        <div class="preview-details">
+                            <div class="preview-item">
+                                <i class="fas fa-envelope text-muted me-2"></i>
+                                <span id="emailPreview">No email provided</span>
+                            </div>
+                            <div class="preview-item">
+                                <i class="fas fa-birthday-cake text-muted me-2"></i>
+                                <span id="datePreview">Date not specified</span>
+                            </div>
+                            <div class="preview-item">
+                                <i class="fas fa-user-clock text-muted me-2"></i>
+                                <span>Will be created on: @DateTime.Now.ToString("MMM dd, yyyy")</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="preview-footer">
+                    <div class="progress-container">
+                        <label class="progress-label">Form Completion</label>
+                        <div class="progress">
+                            <div class="progress-bar bg-success" id="progressBar" style="width: 0%"></div>
+                        </div>
+                        <small class="progress-text" id="progressText">0% Complete</small>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="help-card mt-4">
+                <div class="help-header">
+                    <h6 class="help-title">
+                        <i class="fas fa-lightbulb me-2"></i>
+                        Quick Tips
+                    </h6>
+                </div>
+                <div class="help-content">
+                    <div class="help-item">
+                        <i class="fas fa-check-circle text-success me-2"></i>
+                        Required fields are marked with *
+                    </div>
+                    <div class="help-item">
+                        <i class="fas fa-check-circle text-success me-2"></i>
+                        Email format will be validated
+                    </div>
+                    <div class="help-item">
+                        <i class="fas fa-check-circle text-success me-2"></i>
+                        Date picker available for birth date
+                    </div>
+                    <div class="help-item">
+                        <i class="fas fa-check-circle text-success me-2"></i>
+                        Preview updates in real-time
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-8">
+            <div class="create-form-card">
+                <div class="form-header">
+                    <h4 class="form-title">
+                        <i class="fas fa-user-edit me-2"></i>
+                        Student Information Form
+                    </h4>
+                    <p class="form-subtitle">Please provide the required student details below</p>
+                </div>
+                
+                <form asp-action="Create" id="createForm" novalidate>
+                    <div class="form-body">
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger validation-summary" role="alert">
+                            <i class="fas fa-exclamation-triangle me-2"></i>
+                            Please correct the following errors before proceeding:
+                        </div>
+                        
+                        <div class="form-step">
+                            <div class="step-header">
+                                <h5 class="step-title">
+                                    <span class="step-number">1</span>
+                                    Personal Details
+                                </h5>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label asp-for="FirstName" class="form-label">
+                                            <i class="fas fa-user me-2"></i>
+                                            @Html.DisplayNameFor(model => model.FirstName)
+                                            <span class="required-indicator">*</span>
+                                        </label>
+                                        <input asp-for="FirstName" class="form-control form-control-lg" 
+                                               placeholder="Enter first name" id="firstNameInput" required />
+                                        <span asp-validation-for="FirstName" class="validation-message"></span>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label asp-for="LastName" class="form-label">
+                                            <i class="fas fa-user me-2"></i>
+                                            @Html.DisplayNameFor(model => model.LastName)
+                                            <span class="required-indicator">*</span>
+                                        </label>
+                                        <input asp-for="LastName" class="form-control form-control-lg" 
+                                               placeholder="Enter last name" id="lastNameInput" required />
+                                        <span asp-validation-for="LastName" class="validation-message"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-step">
+                            <div class="step-header">
+                                <h5 class="step-title">
+                                    <span class="step-number">2</span>
+                                    Contact Information
+                                </h5>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label asp-for="Email" class="form-label">
+                                    <i class="fas fa-envelope me-2"></i>
+                                    @Html.DisplayNameFor(model => model.Email)
+                                </label>
+                                <div class="input-group">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-at"></i>
+                                    </span>
+                                    <input asp-for="Email" class="form-control form-control-lg" 
+                                           placeholder="student@example.com" id="emailInput" type="email" />
+                                </div>
+                                <span asp-validation-for="Email" class="validation-message"></span>
+                                <div class="form-help">
+                                    <small class="text-muted">
+                                        <i class="fas fa-info-circle me-1"></i>
+                                        Optional - Used for notifications and communication
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-step">
+                            <div class="step-header">
+                                <h5 class="step-title">
+                                    <span class="step-number">3</span>
+                                    Additional Details
+                                </h5>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label asp-for="DateOfBirth" class="form-label">
+                                    <i class="fas fa-calendar me-2"></i>
+                                    @Html.DisplayNameFor(model => model.DateOfBirth)
+                                </label>
+                                <div class="input-group">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-calendar-day"></i>
+                                    </span>
+                                    <input asp-for="DateOfBirth" class="form-control form-control-lg" 
+                                           type="date" id="dateInput" max="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                                </div>
+                                <span asp-validation-for="DateOfBirth" class="validation-message"></span>
+                                <div class="form-help">
+                                    <small class="text-muted">
+                                        <i class="fas fa-info-circle me-1"></i>
+                                        Optional - Used for age verification and academic planning
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-footer">
+                        <div class="row align-items-center">
+                            <div class="col-6">
+                                <a asp-action="Index" class="btn btn-secondary btn-lg">
+                                    <i class="fas fa-arrow-left me-2"></i>
+                                    Cancel
+                                </a>
+                            </div>
+                            <div class="col-6 text-end">
+                                <button type="button" class="btn btn-outline-secondary btn-lg me-3" onclick="clearForm()">
+                                    <i class="fas fa-eraser me-2"></i>
+                                    Clear Form
+                                </button>
+                                <button type="submit" class="btn btn-success btn-lg" id="submitBtn">
+                                    <i class="fas fa-user-plus me-2"></i>
+                                    Create Student
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    :root {
+        --primary-color: #2c3e50;
+        --secondary-color: #3498db;
+        --success-color: #27ae60;
+        --warning-color: #f39c12;
+        --danger-color: #e74c3c;
+        --info-color: #17a2b8;
+        --light-bg: #f8f9fa;
+        --border-color: #e9ecef;
+        --text-muted: #6c757d;
+        --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .page-header {
+        background: linear-gradient(135deg, var(--light-bg) 0%, #ffffff 100%);
+        padding: 2.5rem;
+        border-radius: 0.75rem;
+        border: 1px solid var(--border-color);
+        margin-bottom: 2rem;
+        box-shadow: var(--shadow);
+    }
+
+    .page-title {
+        color: var(--primary-color);
+        font-weight: 700;
+        font-size: 2.25rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .page-subtitle {
+        color: var(--text-muted);
+        font-size: 1.1rem;
+        margin-bottom: 0;
+    }
+
+    .create-container {
+        margin-bottom: 2rem;
+    }
+
+    .preview-card {
+        background: linear-gradient(135deg, var(--success-color) 0%, #229954 100%);
+        border-radius: 0.75rem;
+        box-shadow: var(--shadow-lg);
+        color: white;
+        position: sticky;
+        top: 2rem;
+    }
+
+    .preview-header {
+        padding: 1.5rem 1.5rem 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .preview-title {
+        color: white;
+        font-weight: 600;
+        margin-bottom: 1rem;
+    }
+
+    .preview-content {
+        padding: 2rem 1.5rem;
+        text-align: center;
+    }
+
+    .preview-avatar {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1.5rem;
+        border: 3px solid rgba(255, 255, 255, 0.3);
+        font-size: 2rem;
+        font-weight: 700;
+        backdrop-filter: blur(10px);
+        transition: all 0.3s ease;
+    }
+
+    .preview-name {
+        font-size: 1.4rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+    }
+
+    .preview-status {
+        color: rgba(255, 255, 255, 0.9);
+        margin-bottom: 1.5rem;
+        font-size: 0.9rem;
+    }
+
+    .preview-details {
+        text-align: left;
+    }
+
+    .preview-item {
+        display: flex;
+        align-items: center;
+        padding: 0.75rem 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        font-size: 0.9rem;
+    }
+
+    .preview-item:last-child {
+        border-bottom: none;
+    }
+
+    .preview-footer {
+        padding: 1.5rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .progress-container {
+        text-align: center;
+    }
+
+    .progress-label {
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 0.85rem;
+        margin-bottom: 0.5rem;
+        display: block;
+    }
+
+    .progress {
+        height: 8px;
+        border-radius: 4px;
+        background: rgba(255, 255, 255, 0.2);
+        margin-bottom: 0.5rem;
+    }
+
+    .progress-bar {
+        border-radius: 4px;
+        transition: width 0.3s ease;
+    }
+
+    .progress-text {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 0.8rem;
+    }
+
+    .help-card {
+        background: white;
+        border-radius: 0.75rem;
+        box-shadow: var(--shadow);
+        border: 1px solid var(--border-color);
+    }
+
+    .help-header {
+        background: var(--light-bg);
+        padding: 1rem 1.5rem;
+        border-bottom: 1px solid var(--border-color);
+        border-radius: 0.75rem 0.75rem 0 0;
+    }
+
+    .help-title {
+        color: var(--primary-color);
+        font-weight: 600;
+        margin-bottom: 0;
+    }
+
+    .help-content {
+        padding: 1.5rem;
+    }
+
+    .help-item {
+        display: flex;
+        align-items: center;
+        padding: 0.5rem 0;
+        font-size: 0.9rem;
+        color: var(--text-muted);
+    }
+
+    .create-form-card {
+        background: white;
+        border-radius: 0.75rem;
+        box-shadow: var(--shadow-lg);
+        border: 1px solid var(--border-color);
+    }
+
+    .form-header {
+        background: var(--light-bg);
+        padding: 2rem;
+        border-bottom: 2px solid var(--border-color);
+        border-radius: 0.75rem 0.75rem 0 0;
+    }
+
+    .form-title {
+        color: var(--primary-color);
+        font-weight: 600;
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .form-subtitle {
+        color: var(--text-muted);
+        margin-bottom: 0;
+    }
+
+    .form-body {
+        padding: 2.5rem;
+    }
+
+    .form-step {
+        margin-bottom: 3rem;
+        padding-bottom: 2rem;
+        border-bottom: 2px solid var(--light-bg);
+    }
+
+    .form-step:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+    }
+
+    .step-header {
+        margin-bottom: 1.5rem;
+    }
+
+    .step-title {
+        color: var(--primary-color);
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+    }
+
+    .step-number {
+        background: var(--success-color);
+        color: white;
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 1rem;
+        font-weight: 700;
+        font-size: 1.1rem;
+    }
+
+    .form-group {
+        margin-bottom: 2rem;
+    }
+
+    .form-label {
+        font-weight: 600;
+        color: var(--primary-color);
+        margin-bottom: 0.75rem;
+        display: flex;
+        align-items: center;
+        font-size: 1rem;
+    }
+
+    .required-indicator {
+        color: var(--danger-color);
+        margin-left: 0.5rem;
+        font-weight: 700;
+    }
+
+    .form-control {
+        border: 2px solid var(--border-color);
+        border-radius: 0.5rem;
+        padding: 0.75rem 1rem;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        background-color: white;
+    }
+
+    .form-control-lg {
+        padding: 1rem 1.25rem;
+        font-size: 1.1rem;
+    }
+
+    .form-control:focus {
+        border-color: var(--success-color);
+        box-shadow: 0 0 0 0.2rem rgba(39, 174, 96, 0.25);
+        outline: none;
+    }
+
+    .form-control:hover {
+        border-color: var(--success-color);
+    }
+
+    .input-group-text {
+        background: var(--light-bg);
+        border: 2px solid var(--border-color);
+        border-right: none;
+        color: var(--text-muted);
+    }
+
+    .input-group .form-control {
+        border-left: none;
+    }
+
+    .input-group:focus-within .input-group-text {
+        border-color: var(--success-color);
+        background: rgba(39, 174, 96, 0.1);
+        color: var(--success-color);
+    }
+
+    .form-help {
+        margin-top: 0.5rem;
+    }
+
+    .validation-message {
+        color: var(--danger-color);
+        font-size: 0.875rem;
+        margin-top: 0.5rem;
+        display: block;
+        font-weight: 500;
+    }
+
+    .validation-summary {
+        margin-bottom: 2rem;
+        border: none;
+        border-left: 4px solid var(--danger-color);
+    }
+
+    .form-footer {
+        background: var(--light-bg);
+        padding: 2rem;
+        border-top: 2px solid var(--border-color);
+        border-radius: 0 0 0.75rem 0.75rem;
+    }
+
+    .btn {
+        padding: 0.75rem 1.5rem;
+        font-weight: 500;
+        border-radius: 0.5rem;
+        transition: all 0.3s ease;
+        border: none;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        cursor: pointer;
+    }
+
+    .btn-lg {
+        padding: 1rem 2rem;
+        font-size: 1.1rem;
+    }
+
+    .btn-success {
+        background: linear-gradient(135deg, var(--success-color) 0%, #229954 100%);
+        color: white;
+    }
+
+    .btn-secondary {
+        background: #6c757d;
+        color: white;
+    }
+
+    .btn-outline-secondary {
+        background: transparent;
+        color: #6c757d;
+        border: 2px solid #6c757d;
+    }
+
+    .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-lg);
+        text-decoration: none;
+    }
+
+    .btn-success:hover {
+        color: white;
+    }
+
+    .btn-secondary:hover {
+        color: white;
+    }
+
+    .btn-outline-secondary:hover {
+        background: #6c757d;
+        color: white;
+    }
+
+    .alert {
+        border-radius: 0.5rem;
+        padding: 1rem;
+        border: none;
+    }
+
+    .alert-danger {
+        background-color: rgba(231, 76, 60, 0.1);
+        color: var(--danger-color);
+    }
+
+    .text-muted {
+        color: var(--text-muted) !important;
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Form inputs
+        const firstNameInput = document.getElementById('firstNameInput');
+        const lastNameInput = document.getElementById('lastNameInput');
+        const emailInput = document.getElementById('emailInput');
+        const dateInput = document.getElementById('dateInput');
+        
+        // Preview elements
+        const namePreview = document.getElementById('namePreview');
+        const emailPreview = document.getElementById('emailPreview');
+        const datePreview = document.getElementById('datePreview');
+        const avatarPreview = document.getElementById('avatarPreview');
+        const progressBar = document.getElementById('progressBar');
+        const progressText = document.getElementById('progressText');
+
+        // Form and submit button
+        const form = document.getElementById('createForm');
+        const submitBtn = document.getElementById('submitBtn');
+
+        function updatePreview() {
+            const firstName = firstNameInput.value || 'New';
+            const lastName = lastNameInput.value || 'Student';
+            const email = emailInput.value || 'No email provided';
+            const date = dateInput.value ? new Date(dateInput.value).toLocaleDateString('en-US', { 
+                year: 'numeric', 
+                month: 'short', 
+                day: 'numeric' 
+            }) : 'Date not specified';
+
+            // Update preview content
+            namePreview.textContent = `${firstName} ${lastName}`;
+            emailPreview.textContent = email;
+            datePreview.textContent = date;
+            avatarPreview.textContent = `${firstName.charAt(0).toUpperCase()}${lastName.charAt(0).toUpperCase()}`;
+
+            // Update progress
+            updateProgress();
+        }
+
+        function updateProgress() {
+            const fields = [firstNameInput, lastNameInput, emailInput, dateInput];
+            const requiredFields = [firstNameInput, lastNameInput]; // Required fields
+            
+            let filledCount = 0;
+            let requiredFilled = 0;
+            
+            fields.forEach(field => {
+                if (field.value.trim()) {
+                    filledCount++;
+                    if (requiredFields.includes(field)) {
+                        requiredFilled++;
+                    }
+                }
+            });
+
+            const progress = (filledCount / fields.length) * 100;
+            progressBar.style.width = `${progress}%`;
+            progressText.textContent = `${Math.round(progress)}% Complete`;
+
+            // Change progress bar color based on completion
+            if (progress === 100) {
+                progressBar.className = 'progress-bar bg-success';
+            } else if (progress >= 50) {
+                progressBar.className = 'progress-bar bg-warning';
+            } else {
+                progressBar.className = 'progress-bar bg-info';
+            }
+
+            // Enable/disable submit button based on required fields
+            submitBtn.disabled = requiredFilled < requiredFields.length;
+        }
+
+        // Add event listeners
+        firstNameInput.addEventListener('input', updatePreview);
+        lastNameInput.addEventListener('input', updatePreview);
+        emailInput.addEventListener('input', updatePreview);
+        dateInput.addEventListener('input', updatePreview);
+
+        // Form submission handling
+        form.addEventListener('submit', function(e) {
+            // Add loading state
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Creating Student...';
+            submitBtn.disabled = true;
+
+            // Reset after 3 seconds if form doesn't actually submit
+            setTimeout(() => {
+                submitBtn.innerHTML = originalText;
+                updateProgress(); // This will set the correct disabled state
+            }, 3000);
+        });
+
+        // Enhanced input effects
+        const inputs = document.querySelectorAll('.form-control');
+        inputs.forEach(input => {
+            input.addEventListener('focus', function() {
+                this.closest('.form-group').classList.add('focused');
+            });
+            
+            input.addEventListener('blur', function() {
+                this.closest('.form-group').classList.remove('focused');
+            });
+        });
+
+        // Initial setup
+        updatePreview();
+    });
+
+    function clearForm() {
+        if (confirm('Are you sure you want to clear all entered information?')) {
+            document.getElementById('createForm').reset();
+            // Trigger preview update after reset
+            setTimeout(() => {
+                document.getElementById('firstNameInput').dispatchEvent(new Event('input'));
+            }, 100);
+        }
+    }
+</script>

@@ -1,0 +1,334 @@
+@model IEnumerable<StudentManagement.Web.Models.Student>
+
+@{
+    ViewData["Title"] = "Students Management";
+}
+
+<div class="page-header mb-4">
+    <div class="row align-items-center">
+        <div class="col-md-8">
+            <h1 class="page-title mb-2">
+                <i class="fas fa-user-graduate text-primary me-3"></i>
+                Students Management
+            </h1>
+            <p class="page-subtitle mb-0">Manage and view all registered students in the system</p>
+        </div>
+        <div class="col-md-4 text-md-end">
+            <a asp-action="Create" class="btn btn-primary btn-lg shadow-sm">
+                <i class="fas fa-plus me-2"></i>
+                Add New Student
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-header bg-light">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-list me-2"></i>
+                    Student Directory
+                </h5>
+            </div>
+            <div class="col-md-6 text-md-end">
+                <div class="d-flex justify-content-md-end align-items-center">
+                    <span class="badge bg-info me-3">
+                        Total Students: @Model.Count()
+                    </span>
+                    <div class="input-group" style="max-width: 250px;">
+                        <input type="text" class="form-control form-control-sm" id="searchInput" 
+                               placeholder="Search students..." aria-label="Search students">
+                        <button class="btn btn-outline-secondary btn-sm" type="button">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card-body p-0">
+        @if (Model.Any())
+        {
+            <div class="table-responsive">
+                <table class="table table-hover mb-0" id="studentsTable">
+                    <thead class="table-dark">
+                        <tr>
+                            <th class="px-4 py-3">
+                                <i class="fas fa-user me-2"></i>
+                                @Html.DisplayNameFor(model => model.FirstName)
+                            </th>
+                            <th class="px-4 py-3">
+                                <i class="fas fa-user me-2"></i>
+                                @Html.DisplayNameFor(model => model.LastName)
+                            </th>
+                            <th class="px-4 py-3">
+                                <i class="fas fa-envelope me-2"></i>
+                                @Html.DisplayNameFor(model => model.Email)
+                            </th>
+                            <th class="px-4 py-3">
+                                <i class="fas fa-calendar me-2"></i>
+                                @Html.DisplayNameFor(model => model.DateOfBirth)
+                            </th>
+                            <th class="px-4 py-3 text-center">
+                                <i class="fas fa-cogs me-2"></i>
+                                Actions
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr class="student-row">
+                                <td class="px-4 py-3">
+                                    <div class="d-flex align-items-center">
+                                        <div class="avatar-circle me-3">
+                                            @(item.FirstName?.Substring(0, 1).ToUpper())
+                                        </div>
+                                        <strong>@Html.DisplayFor(modelItem => item.FirstName)</strong>
+                                    </div>
+                                </td>
+                                <td class="px-4 py-3">
+                                    <strong>@Html.DisplayFor(modelItem => item.LastName)</strong>
+                                </td>
+                                <td class="px-4 py-3">
+                                    @if (!string.IsNullOrEmpty(item.Email))
+                                    {
+                                        <a href="mailto:@item.Email" class="text-decoration-none">
+                                            <i class="fas fa-envelope me-1"></i>
+                                            @Html.DisplayFor(modelItem => item.Email)
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">
+                                            <i class="fas fa-envelope me-1"></i>
+                                            No email provided
+                                        </span>
+                                    }
+                                </td>
+                                <td class="px-4 py-3">
+                                    @if (item.DateOfBirth.HasValue)
+                                    {
+                                        <span class="text-muted">
+                                            <i class="fas fa-birthday-cake me-1"></i>
+                                            @item.DateOfBirth.Value.ToString("MMM dd, yyyy")
+                                        </span>
+                                        <br>
+                                        <small class="text-muted">
+                                            Age: @((DateTime.Now - item.DateOfBirth.Value).Days / 365) years
+                                        </small>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">
+                                            <i class="fas fa-calendar me-1"></i>
+                                            Not specified
+                                        </span>
+                                    }
+                                </td>
+                                <td class="px-4 py-3 text-center">
+                                    <div class="btn-group" role="group">
+                                        <a asp-action="Details" asp-route-id="@item.Id" 
+                                           class="btn btn-outline-info btn-sm" 
+                                           title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a asp-action="Edit" asp-route-id="@item.Id" 
+                                           class="btn btn-outline-warning btn-sm" 
+                                           title="Edit Student">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a asp-action="Delete" asp-route-id="@item.Id" 
+                                           class="btn btn-outline-danger btn-sm" 
+                                           title="Delete Student"
+                                           onclick="return confirmDelete('@item.FirstName @item.LastName')">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        else
+        {
+            <div class="text-center py-5">
+                <div class="empty-state">
+                    <i class="fas fa-user-graduate fa-4x text-muted mb-3"></i>
+                    <h4 class="text-muted">No Students Found</h4>
+                    <p class="text-muted mb-4">There are no students registered in the system yet.</p>
+                    <a asp-action="Create" class="btn btn-primary btn-lg">
+                        <i class="fas fa-plus me-2"></i>
+                        Add Your First Student
+                    </a>
+                </div>
+            </div>
+        }
+    </div>
+    
+    @if (Model.Any())
+    {
+        <div class="card-footer bg-light">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <small class="text-muted">
+                        Showing @Model.Count() student(s)
+                    </small>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <a asp-controller="Enrollments" asp-action="Index" class="btn btn-outline-secondary btn-sm me-2">
+                        <i class="fas fa-clipboard-list me-1"></i>
+                        View Enrollments
+                    </a>
+                    <a asp-action="Create" class="btn btn-primary btn-sm">
+                        <i class="fas fa-plus me-1"></i>
+                        Add Student
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<style>
+    .page-header {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        padding: 2rem;
+        border-radius: 0.5rem;
+        border: 1px solid #dee2e6;
+    }
+
+    .page-title {
+        color: #2c3e50;
+        font-weight: 700;
+        font-size: 2rem;
+    }
+
+    .page-subtitle {
+        color: #6c757d;
+        font-size: 1.1rem;
+    }
+
+    .card {
+        border: none;
+        border-radius: 0.75rem;
+        overflow: hidden;
+    }
+
+    .card-header {
+        border-bottom: 2px solid #e9ecef;
+        padding: 1.5rem;
+    }
+
+    .card-title {
+        color: #2c3e50;
+        font-weight: 600;
+    }
+
+    .table th {
+        border: none;
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 0.85rem;
+        letter-spacing: 0.5px;
+    }
+
+    .table td {
+        border-color: #f8f9fa;
+        vertical-align: middle;
+    }
+
+    .student-row:hover {
+        background-color: #f8f9fa;
+        transform: translateY(-1px);
+        transition: all 0.2s ease;
+    }
+
+    .avatar-circle {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #3498db, #2c3e50);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+        font-size: 1.1rem;
+    }
+
+    .btn-group .btn {
+        margin: 0 2px;
+        border-radius: 0.375rem !important;
+        transition: all 0.2s ease;
+    }
+
+    .btn-outline-info:hover {
+        transform: translateY(-2px);
+    }
+
+    .btn-outline-warning:hover {
+        transform: translateY(-2px);
+    }
+
+    .btn-outline-danger:hover {
+        transform: translateY(-2px);
+    }
+
+    .empty-state {
+        padding: 3rem 2rem;
+    }
+
+    .badge {
+        font-size: 0.85rem;
+        padding: 0.5rem 0.75rem;
+    }
+
+    .card-footer {
+        border-top: 2px solid #e9ecef;
+        padding: 1rem 1.5rem;
+    }
+
+    
+</style>
+
+<script>
+    // Search functionality
+    document.getElementById('searchInput').addEventListener('input', function() {
+        const searchTerm = this.value.toLowerCase();
+        const rows = document.querySelectorAll('#studentsTable tbody tr');
+        
+        rows.forEach(row => {
+            const text = row.textContent.toLowerCase();
+            if (text.includes(searchTerm)) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    });
+
+    // Confirm delete function
+    function confirmDelete(studentName) {
+        return confirm(`Are you sure you want to delete ${studentName}? This action cannot be undone.`);
+    }
+
+    // Add smooth animations on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        const rows = document.querySelectorAll('.student-row');
+        rows.forEach((row, index) => {
+            row.style.opacity = '0';
+            row.style.transform = 'translateY(20px)';
+            
+            setTimeout(() => {
+                row.style.transition = 'all 0.5s ease';
+                row.style.opacity = '1';
+                row.style.transform = 'translateY(0)';
+            }, index * 50);
+        });
+    });
+</script>
